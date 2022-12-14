@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="image">
+                <img src="odin.png" alt="" srcset="">
+                <h1>Sign up Form</h1>
+            </div>
+            <p>Photo by sebasstian staines on Unsplash</p>
+        </div>
+        <div class="right">
+            <div class="header">
+                <div>
+                    <p>This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign UP now to Get started</p>
+                    <p>You know you Want to</p>
+                </div>
+            </div>
+        <div>
+            <div class="form-section">
+                <p>Let's do this!</p>
+                <form class="signup-form" id="my-form">
+                    <label for="firstname">First name
+                        <input type="text" id="firstname" name="firstname" required>
+                        <div id="firstname-error" class="error"></div>
+                    </label>
+                    <label for="lastname">Last name
+                        <input type="text" id="lastname" name="lastname" required>
+                        <div id="lastname-error" class="error"></div>
+                    </label>
+                    <label for="email">Email
+                        <input type="email" name="email" id="email" required autocomplete="off">
+                        <div id="email-error" class="error"></div>
+                    </label>
+                    <label for="phonenumber">phone number
+                        <input type="text" id="phonenumber" name="phonenumber" required pattern='[0-9]{10}'>
+                        <div id="tel-error" class="error"></div>
+                    </label>
+                    <label for="password">password
+                        <input type="password" name="password" id="password" required pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'>
+                        <dev id="password-error" class="error"></dev>
+                    </label>
+                    <label for="passwordC"> confirm password
+                        <input type="password" name="passwordC" id="passwordC" required pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'>
+                        <dev id="passwordC-error" class="error"></dev>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="submit">
+            <div>
+                <button type="submit" form="my-form">Create Account</button>
+                <p>Already have an account? <a href="">Log in</a></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script>
+        const pwc = document.querySelector('#passwordC')
+        const pw = document.querySelector("#password")
+        const phone = document.querySelector("#phonenumber")
+        const email = document.querySelector("#email")
+        const lastname = document.querySelector("#lastname")
+        const firstname = document.querySelector("#firstname")
+        const pwcError = document.querySelector("#passwordC-error")
+        const pwError = document.querySelector("#password-error")
+        const phoneError = document.querySelector("#tel-error")
+        const emailError = document.querySelector("#email-error")
+        const lastError = document.querySelector("#lastname-error")
+        const firstError = document.querySelector("#firstname-error")
+        firstname.addEventListener("input" , function(event){
+            if(firstname.value == ''){
+                firstError.textContent = 'please type your first name'
+            }else{
+                firstError.textContent = ''
+            }
+        })
+
+        lastname.addEventListener("input" , function(event){
+            if(lastname.value == ''){
+                lastError.textContent = 'please type your last name'
+            }else{
+                lastError.textContent = ''
+            }
+        })
+
+        email.addEventListener("input" , function(event){
+            if(email.validity.typeMismatch){
+                emailError.textContent = 'please type correct email'
+            }else{
+                emailError.textContent = ''
+            }
+        })
+
+        phone.addEventListener("input" , function(event){
+            if(phone.validity.patternMismatch){
+                phoneError.textContent='please type correct phone number'
+            }else{
+                phoneError.textContent=''
+            }
+        })
+        pw.addEventListener("input", function(event){
+            if(pw.validity.patternMismatch){
+                const currentValue = pw.value
+                const regExpCap = /[A-Z]/g
+                const regExpDig = /[0-9]/g
+                let result =''
+                if(regExpCap.test(currentValue)){
+                    result +=''
+                }else{
+                    result += `Missing at least 1 capital letter`
+                    result +='\n'
+                }
+
+                if(regExpDig.test(currentValue)){
+                    result +=''
+                }else{
+                    result +=`Missing at least 1 number`
+                    result +='\n'
+                }
+                if(currentValue.length < 9){
+                    result +='password must be at least 8 character'
+                    result +='\n'
+                }else{
+                    result +=''
+                }
+                console.log(result)
+                pwError.textContent= result
+            }else{
+                pwError.textContent=''
+            }
+        })
+        pwc.addEventListener("input" , function(event){
+            if(pwc.value != pw.value ){
+                pwcError.textContent='password do not match'
+            }else{
+                pwcError.textContent=''
+            }
+        })
+    </script>
+</body>
+</html>
